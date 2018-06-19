@@ -36,4 +36,5 @@ void Usart::receive_string(char* const buffer,
       break;
     }
   }
+  received.clear_queue();
 }
