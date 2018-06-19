@@ -34,11 +34,19 @@ class FifoQueue {
       queue_empty = false;
       return sending_queue[next_queue_element_index++];
     }
-    next_queue_element_index = 0;
-    last_queue_element_index = 0;
 
+    clear_queue();
     queue_empty = true;
     return 0;
+  }
+
+  /**
+   * @brief Clears queue
+   *
+   */
+  void clear_queue() {
+    next_queue_element_index = 0;
+    last_queue_element_index = 0;
   }
 
  private:
