@@ -5,9 +5,10 @@ extern "C" {
 }
 #include "util/fifo.hpp"
 
-Usart::Usart(uint16_t baud_rate) {
-  UBRRH = (baud_rate >> 8);
-  UBRRL = baud_rate;
+Usart::Usart(const uint16_t baud_rate) {
+  const uint16_t baud_prescale = (((F_CPU / (baud_rate * 16UL))) - 1);
+  UBRRH = (baud_prescale >> 8);
+  UBRRL = baud_prescale;
 
   // enable Tx and Rx
   UCSRB = (1 << TXEN) | (1 << RXEN);
