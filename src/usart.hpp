@@ -44,7 +44,7 @@ class Usart {
     bool queue_empty = false;
     const uint8_t data = to_send.take_from_queue(queue_empty);
 
-    if (data != get_string_delimiter() && !queue_empty) {
+    if (!queue_empty) {
       UDR = data;
     } else {
       disable_transmit_buffer_empty_interrupts();
