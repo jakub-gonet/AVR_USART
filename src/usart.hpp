@@ -8,11 +8,34 @@ extern "C" {
 
 class Usart {
  public:
+  /**
+   * @brief Construct a new Usart object with specified baud rate
+   *
+   * @param baud_rate
+   */
   Usart(const uint16_t baud_rate);
+
+  /**
+   * @brief Sends string by queueing data in FIFO queue
+   *
+   * @param buffer
+   * @param buffer_size
+   * @return true
+   * @return false
+   */
   bool send_string(char const* const buffer, const uint8_t buffer_size);
-  char* receive_string(char* const buffer, const uint8_t buffer_size);
 
   constexpr char get_string_delimiter() const { return '\0'; }
+  /**
+   * @brief Receives string from cached value in FIFO queue
+   *
+   * @param buffer
+   * @param buffer_size
+   * @param delimiter
+   */
+  void receive_string(char* const buffer,
+                      const uint8_t buffer_size,
+                      const char delimiter);
 
   /**
    * @brief Function designed to be used in ISR(USART_UDRE_vect).
