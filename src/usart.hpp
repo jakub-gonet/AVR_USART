@@ -10,6 +10,7 @@ class Usart {
                          const uint8_t buffer_size) const;
   const char* const receive_string(char* const buffer,
                                    const uint8_t buffer_size) const;
+  constexpr const char get_string_delimiter() const { return '\0'; }
 
  private:
   /**
