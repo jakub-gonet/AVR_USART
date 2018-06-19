@@ -12,6 +12,20 @@ class Usart {
 
   constexpr const char get_string_delimiter() const { return '\0'; }
 
+  /**
+   * @brief Function designed to be used in ISR(USART_UDRE_vect).
+   *
+   */
+  inline void handle_send_interrupt() {
+    bool queue_empty = false;
+    const uint8_t data = to_send.take_from_queue(queue_empty);
+
+    if (data != get_string_delimiter() && !queue_empty) {
+      UDR = data;
+    } else {
+      disable_transmit_buffer_empty_interrupts();
+    }
+  }
  private:
   /**
    * @brief FIFO queue used to buffer data to send
