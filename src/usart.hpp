@@ -26,6 +26,13 @@ class Usart {
       disable_transmit_buffer_empty_interrupts();
     }
   }
+
+  /**
+   * @brief Function designed to be used in ISR(USART_RXC_vect).
+   *
+   */
+  inline void handle_receive_interrupt() { received.push_to_queue(UDR); }
+
  private:
   /**
    * @brief FIFO queue used to buffer data to send
