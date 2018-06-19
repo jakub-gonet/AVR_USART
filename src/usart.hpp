@@ -1,6 +1,8 @@
 #ifndef USART_HPP
 #define USART_HPP
 
+#include <avr/io.h>
+
 class Usart {
  public:
   Usart(const uint16_t baud_rate);
@@ -10,8 +12,16 @@ class Usart {
                                    const uint8_t buffer_size) const;
 
  private:
-  const bool send_byte(const uint8_t byte) const;
-  const uint8_t receive_byte() const;
+  /**
+   * @brief FIFO queue used to buffer data to send
+   *
+   */
+  FifoQueue<32> to_send;
+  /**
+   * @brief FIFO queue used to buffer received data
+   *
+   */
+  FifoQueue<32> received;
 };
 
 #endif  // USART_HPP
