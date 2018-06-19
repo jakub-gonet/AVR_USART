@@ -28,7 +28,7 @@ class FifoQueue {
    * provide next element
    * @return const uint8_t
    */
-  const uint8_t take_from_queue(bool& error) {
+  const uint8_t take_from_queue(bool& queue_empty) {
     if (next_queue_element_index <= last_queue_element_index) {
       queue_empty = false;
       return sending_queue[next_queue_element_index++];
@@ -41,7 +41,7 @@ class FifoQueue {
   }
 
  private:
-  uint8_t fifo_size = Size;
+  const uint8_t fifo_size = Size;
   uint8_t sending_queue[Size];
   uint8_t next_queue_element_index = 0;
   uint8_t last_queue_element_index = 0;
