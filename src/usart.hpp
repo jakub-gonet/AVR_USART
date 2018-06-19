@@ -8,7 +8,8 @@ class Usart {
   Usart(const uint16_t baud_rate);
   const bool send_string(char const* const buffer, const uint8_t buffer_size);
   const char* const receive_string(char* const buffer,
-                                   const uint8_t buffer_size) const;
+                                   const uint8_t buffer_size);
+
   constexpr const char get_string_delimiter() const { return '\0'; }
 
  private:

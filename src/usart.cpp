@@ -21,3 +21,12 @@ const bool Usart::send_string(char const* const buffer,
 
   start_sending_data();
 }
+
+const char* const Usart::receive_string(char* const buffer,
+                                        const uint8_t buffer_size) {
+  bool queue_empty = false;
+  for (uint8_t i = 0; i < buffer_size && !queue_empty; ++i) {
+    buffer[i] = received.take_from_queue(queue_empty);
+  }
+  return buffer;
+}
