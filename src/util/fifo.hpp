@@ -14,7 +14,7 @@ class FifoQueue {
    * @return true
    * @return false
    */
-  const bool push_to_queue(const uint8_t byte) volatile {
+  bool push_to_queue(const uint8_t byte) volatile {
     if (last_queue_element_index < fifo_size) {
       sending_queue[last_queue_element_index++] = byte;
       return true;
@@ -29,7 +29,7 @@ class FifoQueue {
    * provide next element
    * @return const uint8_t
    */
-  const uint8_t take_from_queue(bool& queue_empty) volatile {
+  uint8_t take_from_queue(bool& queue_empty) volatile {
     if (next_queue_element_index <= last_queue_element_index) {
       queue_empty = false;
       return sending_queue[next_queue_element_index++];
