@@ -5,6 +5,21 @@
 
 template <uint8_t Size = 32>
 class FifoQueue {
+ public:
+  /**
+   * @brief Pushes new item to FIFO sending queue
+   *
+   * @param byte
+   * @return true
+   * @return false
+   */
+  const bool push_to_queue(const uint8_t byte) {
+    if (last_queue_element_index < fifo_size) {
+      sending_queue[last_queue_element_index++] = byte;
+      return true;
+    }
+    return false;
+  }
  private:
   uint8_t fifo_size = Size;
   uint8_t sending_queue[Size];
