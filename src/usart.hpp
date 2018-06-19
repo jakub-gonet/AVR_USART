@@ -25,7 +25,6 @@ class Usart {
    */
   bool send_string(char const* const buffer, const uint8_t buffer_size);
 
-  constexpr char get_string_delimiter() const { return '\0'; }
   /**
    * @brief Receives string from cached value in FIFO queue
    *
