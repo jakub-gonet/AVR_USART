@@ -44,7 +44,7 @@ class FifoQueue {
    * @brief Clears queue
    *
    */
-  void clear_queue() {
+  void clear_queue() volatile {
     next_queue_element_index = 0;
     last_queue_element_index = 0;
   }
