@@ -1,5 +1,8 @@
 #include "usart.hpp"
+
+extern "C" {
 #include <avr/io.h>
+}
 #include "util/fifo.hpp"
 
 Usart::Usart(uint16_t baud_rate) {

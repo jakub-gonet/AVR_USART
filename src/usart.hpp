@@ -1,7 +1,9 @@
 #ifndef USART_HPP
 #define USART_HPP
 
+extern "C" {
 #include <avr/io.h>
+}
 #include "util/fifo.hpp"
 
 class Usart {
@@ -38,12 +40,12 @@ class Usart {
    * @brief FIFO queue used to buffer data to send
    *
    */
-  FifoQueue<32> to_send;
+  volatile FifoQueue<32> to_send;
   /**
    * @brief FIFO queue used to buffer received data
    *
    */
-  FifoQueue<32> received;
+  volatile FifoQueue<32> received;
 
   /**
    * @brief Start the proccess of sending data from `to_send` queue. It should
