@@ -29,15 +29,17 @@ class FifoQueue {
    * provide next element
    * @return const uint8_t
    */
-  uint8_t take_from_queue(bool& queue_empty) volatile {
-    if (next_queue_element_index <= last_queue_element_index) {
-      queue_empty = false;
+  uint8_t take_from_queue() volatile {
+    if (next_queue_element_index < last_queue_element_index) {
       return queue[next_queue_element_index++];
     }
 
     clear_queue();
-    queue_empty = true;
     return 0;
+  }
+
+  bool is_empty() volatile {
+    return next_queue_element_index == last_queue_element_index;
   }
 
   /**
