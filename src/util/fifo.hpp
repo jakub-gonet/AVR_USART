@@ -8,7 +8,7 @@ template <uint8_t Size = 32>
 class FifoQueue {
  public:
   /**
-   * @brief Pushes new item to FIFO sending queue
+   * @brief Pushes new item to FIFO queue
    *
    * @param byte
    * @return true
@@ -16,7 +16,7 @@ class FifoQueue {
    */
   bool push_to_queue(const uint8_t byte) volatile {
     if (last_queue_element_index < fifo_size) {
-      sending_queue[last_queue_element_index++] = byte;
+      queue[last_queue_element_index++] = byte;
       return true;
     }
     return false;
@@ -32,7 +32,7 @@ class FifoQueue {
   uint8_t take_from_queue(bool& queue_empty) volatile {
     if (next_queue_element_index <= last_queue_element_index) {
       queue_empty = false;
-      return sending_queue[next_queue_element_index++];
+      return queue[next_queue_element_index++];
     }
 
     clear_queue();
@@ -51,7 +51,7 @@ class FifoQueue {
 
  private:
   const uint8_t fifo_size = Size;
-  uint8_t sending_queue[Size];
+  uint8_t queue[Size];
   uint8_t next_queue_element_index = 0;
   uint8_t last_queue_element_index = 0;
 };
