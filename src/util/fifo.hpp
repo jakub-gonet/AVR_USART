@@ -33,9 +33,9 @@ class FifoQueue {
     if (next_queue_element_index < last_queue_element_index) {
       return queue[next_queue_element_index++];
     }
-
+    
     clear_queue();
-    return 0;
+    return -1;
   }
 
   bool is_empty() volatile {
