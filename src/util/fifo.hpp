@@ -33,7 +33,7 @@ class FifoQueue {
     if (next_queue_element_index < last_queue_element_index) {
       return queue[next_queue_element_index++];
     }
-    
+
     clear_queue();
     return -1;
   }
@@ -56,5 +56,11 @@ class FifoQueue {
   uint8_t queue[Size];
   uint8_t next_queue_element_index = 0;
   uint8_t last_queue_element_index = 0;
+
+  inline void wrap_if_neccessary(uint8_t& index) {
+    if (index == fifo_size) {
+      index = 0;
+    }
+  }
 };
 #endif  // FIFO_HPP
