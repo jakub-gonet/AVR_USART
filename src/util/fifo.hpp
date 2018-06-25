@@ -31,8 +31,7 @@ class FifoQueue {
   uint8_t get() volatile {
     if (!is_empty()) {
       --item_count;
-      uint8_t data = buffer[(++tail) % Size];
-      return data;
+      return buffer[(++tail) % Size];
     }
     return -1;
   }
