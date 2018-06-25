@@ -47,8 +47,9 @@ class FifoQueue {
    *
    */
   void clear_queue() volatile {
-    next_queue_element_index = 0;
-    last_queue_element_index = 0;
+    head = 0;
+    tail = 0;
+    item_count = 0;
   }
 
   private:
