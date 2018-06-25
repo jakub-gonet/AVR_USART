@@ -14,9 +14,11 @@ class FifoQueue {
    * @return true
    * @return false
    */
-  bool push_to_queue(const uint8_t byte) volatile {
-    if (last_queue_element_index < fifo_size) {
-      queue[last_queue_element_index++] = byte;
+  bool put(const uint8_t byte) volatile {
+    if (!is_full()) {
+      ++item_count;
+      buffer[head] = byte;
+      head = (head + 1) % size;
       return true;
     }
     return false;
