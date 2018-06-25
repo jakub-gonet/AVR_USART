@@ -51,12 +51,6 @@ class FifoQueue {
     last_queue_element_index = 0;
   }
 
-
-  inline void wrap_if_neccessary(uint8_t& index) {
-    if (index == fifo_size) {
-      index = 0;
-    }
-  }
   private:
   const uint8_t size = Size;
   uint8_t buffer[Size];
