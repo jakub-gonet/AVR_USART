@@ -29,11 +29,8 @@ class Usart {
    *
    */
   inline void handle_send_interrupt() {
-    bool queue_empty = false;
-    const uint8_t data = to_send.take_from_queue(queue_empty);
-
-    if (!queue_empty) {
-      UDR = data;
+    if (!to_send.is_empty()) {
+      UDR = to_send.get();
     } else {
       disable_transmit_buffer_empty_interrupts();
     }
