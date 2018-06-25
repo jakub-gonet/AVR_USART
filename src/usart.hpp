@@ -40,7 +40,7 @@ class Usart {
    * @brief Function designed to be used in ISR(USART_RXC_vect).
    *
    */
-  inline void handle_receive_interrupt() { received.push_to_queue(UDR); }
+  inline void handle_receive_interrupt() { received.put(UDR); }
 
  private:
   /**
