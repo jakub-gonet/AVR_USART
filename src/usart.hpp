@@ -42,6 +42,20 @@ class Usart {
     return 0;
   }
 
+/**
+ * @brief Receives string by taking data from queue
+ * 
+ * @param buffer
+ * @param buffer_size 
+ * @return char* 
+ */
+  char* receive_string(char* const buffer, uint8_t buffer_size) {
+    for (uint8_t i = 0; i < buffer_size && !received.is_empty(); ++i) {
+      buffer[i] = received.get();
+    }
+    return buffer;
+  }
+
   /**
    * @brief Function designed to be used in ISR(USART_UDRE_vect).
    *
