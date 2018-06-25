@@ -38,9 +38,8 @@ class FifoQueue {
     return -1;
   }
 
-  bool is_empty() volatile {
-    return next_queue_element_index == last_queue_element_index;
-  }
+  inline bool is_empty() volatile { return item_count == 0; }
+  inline bool is_full() volatile { return item_count == size; }
 
   /**
    * @brief Clears queue
