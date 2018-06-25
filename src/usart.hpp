@@ -32,7 +32,13 @@ class Usart {
    * @return true
    * @return false
    */
-  bool send_string(char const* const string);
+  bool send_string(char const* const string) {
+    uint8_t data, i = 0;
+    while ((data = static_cast<uint8_t>(string[i++]))) {
+      to_send.put(data);
+    }
+    start_sending_data();
+  }
 
   /**
    * @brief Function designed to be used in ISR(USART_UDRE_vect).
