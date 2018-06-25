@@ -27,16 +27,15 @@ class FifoQueue {
   /**
    * @brief Returns next element from queue
    *
-   * @param queue_empty when true, indicates that queue is empty, so it can't
-   * provide next element
-   * @return const uint8_t
+   * @return uint8_t -1 indicating error
    */
-  uint8_t take_from_queue() volatile {
-    if (next_queue_element_index < last_queue_element_index) {
-      return queue[next_queue_element_index++];
+  uint8_t get() volatile {
+    if (!is_empty()) {
+      --item_count;
+      uint8_t data = buffer[tail];
+      tail = (tail + 1) % size;
+      return data;
     }
-
-    clear_queue();
     return -1;
   }
 
