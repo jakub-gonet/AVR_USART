@@ -24,17 +24,3 @@ bool Usart::send_string(char const* const string) {
   }
   start_sending_data();
 }
-
-void Usart::receive_string(char* const buffer,
-                           const uint8_t buffer_size,
-                           const char delimiter) {
-  bool queue_empty = false;
-  for (uint8_t i = 0; i < buffer_size && !queue_empty; ++i) {
-    buffer[i] = received.take_from_queue(queue_empty);
-
-    if (buffer[i] == delimiter) {
-      break;
-    }
-  }
-  received.clear_queue();
-}
