@@ -50,4 +50,21 @@ SCENARIO("Data can be inserted to and retrieved from FIFO queue",
       }
     }
   }
+
+  GIVEN("A 0 capacity FIFO queue") {
+    FifoQueue<0> queue;
+    REQUIRE(queue.is_empty() == true);
+    REQUIRE(queue.is_full() == true);
+    WHEN("Next item is being inserted") {
+      THEN("Push function returns false indicating insert error") {
+        REQUIRE(queue.put(1) == false);
+      }
+    }
+
+    WHEN("Next item is being taken") {
+      THEN("Take function should return -1 indicating retrieval error") {
+        REQUIRE(queue.get() == static_cast<uint8_t>(-1));
+      }
+    }
+  }
 }
