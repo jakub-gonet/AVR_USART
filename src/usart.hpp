@@ -13,7 +13,17 @@ class Usart {
    *
    * @param baud_rate
    */
-  Usart(const uint16_t baud_rate);
+  inline Usart(const uint16_t baud_rate) {
+    const uint16_t baud_prescale = (((F_CPU / (baud_rate * 16UL))) - 1);
+    UBRRH = (baud_prescale >> 8);
+    UBRRL = baud_prescale;
+
+    // enable Tx and Rx
+    UCSRB = (1 << TXEN) | (1 << RXEN);
+
+    // set data format to 8 bits, 1 stop bit, no parity check
+    UCSRC = (1 << URSEL) | (1 << UCSZ0) | (1 << UCSZ1);
+  }
 
   /**
    * @brief Sends string by queueing data in FIFO queue
