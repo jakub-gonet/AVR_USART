@@ -18,5 +18,22 @@ SCENARIO("Data can be inserted to and retrieved from FIFO queue",
       THEN("Queue is not empty") { REQUIRE(queue.is_empty() == false); }
       THEN("Data can be retrieved") { REQUIRE(queue.get() == 1); }
     }
+
+    WHEN("Data is inserted and then retrieved") {
+      REQUIRE(queue.put(10) == true);
+      REQUIRE(queue.put(20) == true);
+      REQUIRE(queue.get() == 10);
+      REQUIRE(queue.get() == 20);
+
+      THEN("Queue is empty") { REQUIRE(queue.is_empty() == true); }
+
+      THEN("Take function should return -1 indicating retrieval error") {
+        REQUIRE(queue.get() == static_cast<uint8_t>(-1));
+      }
+      THEN("Next values can be inserted") {
+        REQUIRE(queue.put(50) == true);
+        REQUIRE(queue.put(100) == true);
+      }
+    }
   }
 }
