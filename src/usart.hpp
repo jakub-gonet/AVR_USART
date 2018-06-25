@@ -45,9 +45,11 @@ class Usart {
    *
    */
   inline void handle_send_interrupt() {
-    if (!to_send.is_empty()) {
-      UDR = to_send.get();
+    uint8_t data = to_send.get();
+    if (!to_send.is_empty() && data) {
+      UDR = data;
     } else {
+      to_send.clear_queue();
       disable_transmit_buffer_empty_interrupts();
     }
   }
