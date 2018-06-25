@@ -17,7 +17,7 @@ class FifoQueue {
   bool put(const uint8_t byte) volatile {
     if (!is_full()) {
       ++item_count;
-      buffer[(++head) % size] = byte;
+      buffer[(++head) % Size] = byte;
       return true;
     }
     return false;
@@ -31,14 +31,14 @@ class FifoQueue {
   uint8_t get() volatile {
     if (!is_empty()) {
       --item_count;
-      uint8_t data = buffer[(++tail) % size];
+      uint8_t data = buffer[(++tail) % Size];
       return data;
     }
     return -1;
   }
 
   inline bool is_empty() volatile { return item_count == 0; }
-  inline bool is_full() volatile { return item_count == size; }
+  inline bool is_full() volatile { return item_count == Size; }
 
   /**
    * @brief Clears queue
@@ -51,7 +51,6 @@ class FifoQueue {
   }
 
  private:
-  const uint8_t size = Size;
   uint8_t item_count = 0;
   uint8_t buffer[Size];
   uint8_t head = -1;
