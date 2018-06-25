@@ -29,15 +29,17 @@ class Usart {
    * @brief Sends string by queueing data in FIFO queue
    *
    * @param string
-   * @return true
-   * @return false
+   * @return uint8_t
    */
-  bool send_string(char const* const string) {
+  uint8_t send_string(char const* const string) {
     uint8_t data, i = 0;
     while ((data = static_cast<uint8_t>(string[i++]))) {
-      to_send.put(data);
+      if (!to_send.put(data)) {
+        return i - 1;
+      }
     }
     start_sending_data();
+    return 0;
   }
 
   /**
