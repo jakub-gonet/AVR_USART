@@ -53,6 +53,7 @@ class FifoQueue {
 
   private:
   const uint8_t size = Size;
+  uint8_t item_count = 0;
   uint8_t buffer[Size];
   uint8_t head = 0;
   uint8_t tail = 0;
