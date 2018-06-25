@@ -18,23 +18,11 @@ class Usart {
   /**
    * @brief Sends string by queueing data in FIFO queue
    *
-   * @param buffer
-   * @param buffer_size
+   * @param string
    * @return true
    * @return false
    */
-  bool send_string(char const* const buffer, const uint8_t buffer_size);
-
-  /**
-   * @brief Receives string from cached value in FIFO queue
-   *
-   * @param buffer
-   * @param buffer_size
-   * @param delimiter
-   */
-  void receive_string(char* const buffer,
-                      const uint8_t buffer_size,
-                      const char delimiter);
+  bool send_string(char const* const string);
 
   /**
    * @brief Function designed to be used in ISR(USART_UDRE_vect).

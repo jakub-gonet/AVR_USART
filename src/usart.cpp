@@ -17,11 +17,11 @@ Usart::Usart(const uint16_t baud_rate) {
   UCSRC = (1 << URSEL) | (1 << UCSZ0) | (1 << UCSZ1);
 }
 
-bool Usart::send_string(char const* const buffer, const uint8_t buffer_size) {
-  for (uint8_t i = 0; i < buffer_size; ++i) {
-    to_send.push_to_queue(static_cast<uint8_t>(buffer[i]));
+bool Usart::send_string(char const* const string) {
+  uint8_t data, i = 0;
+  while ((data = static_cast<uint8_t>(string[i++]))) {
+    to_send.put(data);
   }
-
   start_sending_data();
 }
 
