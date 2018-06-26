@@ -5,10 +5,11 @@ extern "C" {
 #include "usart.hpp"
 
 Usart usart(4800);
-
+char buffer[64];
 int main() {
   sei();
   while (true) {
+    usart.send_string(usart.receive_string(buffer, 64));
   }
 }
 
