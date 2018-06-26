@@ -33,7 +33,8 @@ class Usart {
    * @return uint8_t
    */
   uint8_t send_string(char const* const string) {
-    uint8_t data, i = 0;
+    uint8_t data;
+    uint16_t i = 0;
     while ((data = static_cast<uint8_t>(string[i++]))) {
       if (!to_send.put(data)) {
         start_sending_data();
