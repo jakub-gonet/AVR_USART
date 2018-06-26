@@ -18,8 +18,8 @@ class Usart {
     UBRRH = (baud_prescale >> 8);
     UBRRL = baud_prescale;
 
-    // enable Tx and Rx
-    UCSRB = (1 << TXEN) | (1 << RXEN);
+    // enable Tx and Rx and enable receive interrupts
+    UCSRB = (1 << RXCIE) | (1 << TXEN) | (1 << RXEN);
 
     // set data format to 8 bits, 1 stop bit, no parity check
     UCSRC = (1 << URSEL) | (1 << UCSZ0) | (1 << UCSZ1);
