@@ -30,9 +30,8 @@ class Usart {
    * NOTE: it will exit immediately if sending queue is full
    *
    * @param string
-   * @return uint8_t
    */
-  uint8_t send_string(char const* const string) {
+  void send_string(char const* const string) {
     uint8_t data;
     uint16_t i = 0;
     while ((data = static_cast<uint8_t>(string[i++]))) {
@@ -45,7 +44,6 @@ class Usart {
     }
 
     start_sending_data();
-    return 0;
   }
 
   /**
