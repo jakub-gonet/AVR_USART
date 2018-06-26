@@ -53,10 +53,19 @@ class Usart {
    * @param buffer_size
    * @return char*
    */
-  char* receive_string(char* const buffer, uint8_t buffer_size) {
-    for (uint8_t i = 0; i < buffer_size && !received.is_empty(); ++i) {
-      buffer[i] = received.get();
+  char* receive_string(char* const buffer, uint16_t buffer_size) {
+    uint16_t i = 0;
+    while (i < buffer_size - 1) {
+      while (received.is_empty())
+        ;
+
+      uint8_t data = received.get();
+      buffer[i++] = data;
+      if (data == '\r') {
+        break;
+      }
     }
+    buffer[i] = '\0';
     return buffer;
   }
 
