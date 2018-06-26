@@ -27,6 +27,7 @@ class Usart {
 
   /**
    * @brief Sends string by queueing data in FIFO queue
+   * NOTE: it will exit immediately if sending queue is full
    *
    * @param string
    * @return uint8_t
@@ -35,20 +36,22 @@ class Usart {
     uint8_t data, i = 0;
     while ((data = static_cast<uint8_t>(string[i++]))) {
       if (!to_send.put(data)) {
+        start_sending_data();
         return i - 1;
       }
     }
+
     start_sending_data();
     return 0;
   }
 
-/**
- * @brief Receives string by taking data from queue
- * 
- * @param buffer
- * @param buffer_size 
- * @return char* 
- */
+  /**
+   * @brief Receives string by taking data from queue
+   *
+   * @param buffer
+   * @param buffer_size
+   * @return char*
+   */
   char* receive_string(char* const buffer, uint8_t buffer_size) {
     for (uint8_t i = 0; i < buffer_size && !received.is_empty(); ++i) {
       buffer[i] = received.get();
@@ -62,10 +65,9 @@ class Usart {
    */
   inline void handle_send_interrupt() {
     uint8_t data = to_send.get();
-    if (!to_send.is_empty() && data) {
+    if (data != static_cast<uint8_t>(-1) && data) {
       UDR = data;
     } else {
-      to_send.clear_queue();
       disable_transmit_buffer_empty_interrupts();
     }
   }
