@@ -27,7 +27,6 @@ class Usart {
 
   /**
    * @brief Sends string by queueing data in FIFO queue
-   * NOTE: it will exit immediately if sending queue is full
    *
    * @param string
    */
@@ -48,7 +47,8 @@ class Usart {
 
   /**
    * @brief Receives string by taking data from queue
-   *
+   * `\r` should end the sent string
+   * 
    * @param buffer
    * @param buffer_size
    * @return char*
