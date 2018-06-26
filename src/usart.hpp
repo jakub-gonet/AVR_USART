@@ -36,9 +36,11 @@ class Usart {
     uint8_t data;
     uint16_t i = 0;
     while ((data = static_cast<uint8_t>(string[i++]))) {
-      if (!to_send.put(data)) {
-        start_sending_data();
-        return i - 1;
+      for (bool started = false; !to_send.put(data);) {
+        if (!started) {
+          start_sending_data();
+          started = true;
+        }
       }
     }
 
