@@ -1,4 +1,4 @@
-extern "C" {
+ extern "C" {
 #include <avr/interrupt.h>
 #include <avr/io.h>
 }
@@ -14,9 +14,9 @@ int main() {
 }
 
 ISR(USART_UDRE_vect) {
-  usart.handle_send_interrupt();
+  usart.send_data_via_interrupt();
 }
 
 ISR(USART_RXC_vect) {
-  usart.handle_receive_interrupt();
+  usart.receive_data_via_interrupt();
 }
