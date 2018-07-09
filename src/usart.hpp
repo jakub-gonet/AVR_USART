@@ -102,7 +102,7 @@ class Usart {
    * @brief Function designed to be used in ISR(USART_UDRE_vect).
    *
    */
-  inline void handle_send_interrupt() {
+  inline void send_data_via_interrupt() {
     uint8_t data = to_send.get();
     if (data != static_cast<uint8_t>(-1) && data) {
       UDR = data;
