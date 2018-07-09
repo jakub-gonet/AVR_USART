@@ -60,6 +60,17 @@ class Usart {
   }
 
   /**
+   * @brief Returns only one byte at time
+   *
+   * @return uint8_t received data
+   */
+  uint8_t receive_byte() {
+    while (received.is_empty())
+      ;
+    return received.get();
+  }
+
+  /**
    * @brief Receives string by taking data from queue
    * `\r` should end the sent string
    * 
