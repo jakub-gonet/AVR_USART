@@ -26,6 +26,20 @@ class Usart {
   }
 
   /**
+   * @brief Sends only one byte at time
+   *
+   * @param byte data to send
+   */
+  void send_byte(const uint8_t byte) {
+    for (bool started = false; !to_send.put(byte);) {
+      if (!started) {
+        start_sending_data();
+        started = true;
+      }
+    }
+  }
+
+  /**
    * @brief Sends string by queueing data in FIFO queue
    *
    * @param string
