@@ -73,7 +73,11 @@ class Usart {
   /**
    * @brief Receives string by taking data from queue
    * `\r` should end the sent string
+<<<<<<< HEAD
    * 
+=======
+   *
+>>>>>>> Update docs
    * @param buffer
    * @param buffer_size
    * @return char*
