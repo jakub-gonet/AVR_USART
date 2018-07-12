@@ -3,8 +3,9 @@
 #include <avr/io.h>
 }
 #include "usart.hpp"
+#include "util/avr.hpp"
 
-Usart usart(4800);
+Usart<Avr> usart(4800);
 char buffer[64];
 int main() {
   sei();
